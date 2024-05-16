@@ -1,6 +1,7 @@
 const EmolumentRepository = require('../repositories/emolument.repository');
 const ProtestService = require('./protest.service');
 const calculateEmolument = require('../utils/calculateEmolumentStrategy');
+const NotFoundError = require('../errors/notFound.error');
 
 class EmolumentService {
   constructor(prisma) {
@@ -12,7 +13,7 @@ class EmolumentService {
     try {
       const protest = await this.protestService.getProtestById(protestId);
       if (!protest) {
-        throw new Error("Protest not found");
+        throw new NotFoundError("Protest not found");
       }
 
       const calculatedAmount = calculateEmolument(protest.debtAmount);
@@ -24,7 +25,11 @@ class EmolumentService {
 
       return await this.emolumentRepository.createEmolument(emolumentToCreate);
     } catch (error) {
-      throw new Error("Error creating emolument: " + error.message);
+      if (error instanceof NotFoundError) {
+        throw error;
+      } else {
+        throw new Error("Unknown error creating emolument: " + error.message);
+      }
     }
   }
 
