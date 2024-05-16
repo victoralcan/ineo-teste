@@ -13,6 +13,10 @@ class UserService {
     return await this.userRepository.findUserById(id);
   }
 
+  async getUserByEmail(email) {
+    return await this.userRepository.findUserByEmail(email);
+  }
+
   async updateUser(id, userData) {
     return await this.userRepository.updateUser(id, userData);
   }
