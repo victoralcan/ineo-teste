@@ -4,7 +4,7 @@ const authMiddleware = require('../middlewares/auth.middleware');
 
 const userRoutes = require('./user.route');
 const protestRoutes = require('./protest.route');
-const emolumentRoutes = require('./emoluments.route');
+const emolumentRoutes = require('./emolument.route');
 const loginRoutes = require('./login.route');
 
 router.use('/login', loginRoutes);
