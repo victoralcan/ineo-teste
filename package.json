@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
+    "seed": "node prisma/seed.js",
     "test": "jest"
   },
   "dependencies": {
