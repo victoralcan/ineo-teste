@@ -5,32 +5,38 @@ class UserRepository {
 
   async createUser(data) {
     return await this.prisma.user.create({
-      data,
+      data
     });
   }
 
   async findUserById(id) {
     return await this.prisma.user.findUnique({
-      where: { id },
+      where: { id }
     });
   }
 
   async findUserByEmail(email) {
     return await this.prisma.user.findUnique({
-      where: { email },
+      where: { email }
+    });
+  }
+
+  async findUserByDocumentNumber(documentNumber) {
+    return await this.prisma.user.findUnique({
+      where: { documentNumber }
     });
   }
 
   async updateUser(id, data) {
     return await this.prisma.user.update({
       where: { id },
-      data,
+      data
     });
   }
 
   async deleteUser(id) {
     return await this.prisma.user.delete({
-      where: { id },
+      where: { id }
     });
   }
 }

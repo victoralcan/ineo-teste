@@ -17,6 +17,10 @@ class UserService {
     return await this.userRepository.findUserByEmail(email);
   }
 
+  async getUserByDocumentNumber(documentNumber) {
+    return await this.userRepository.findUserByDocumentNumber(documentNumber);
+  }
+
   async updateUser(id, userData) {
     return await this.userRepository.updateUser(id, userData);
   }

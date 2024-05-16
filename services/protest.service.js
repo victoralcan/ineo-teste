@@ -1,13 +1,31 @@
 const ProtestRepository = require('../repositories/protest.repository');
+const UserService = require('../services/user.service');
 const NotFoundError = require('../errors/notFound.error');
 
 class ProtestService {
   constructor(prisma) {
     this.protestRepository = new ProtestRepository(prisma);
+    this.userService = new UserService(prisma);
   }
 
   async addProtest(protestData) {
-    return await this.protestRepository.createProtest(protestData);
+    const { payeeDocumentNumber, payeeName, payeeEmail, debtAmount, description } = protestData;
+
+    let payee = await this.userService.getUserByDocumentNumber(payeeDocumentNumber);
+
+    if (!payee) {
+      try {
+        payee = await this.userService.addUser({
+          documentNumber: payeeDocumentNumber,
+          name: payeeName,
+          email: payeeEmail
+        });
+      } catch (error) {
+        throw new Error("Error creating protest: " + error.message);
+      }
+    }
+
+    return await this.protestRepository.createProtest({ userId: payee.id, debtAmount, description });
   }
 
   async getProtestById(id, user) {
