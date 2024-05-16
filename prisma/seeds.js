@@ -15,6 +15,7 @@ async function main() {
       email: 'employee@example.com',
       password: hashedPassword,
       role: 'EMPLOYEE',
+      documentNumber: '12345678900',
       hasSetInitialPassword: true
     }
   });
