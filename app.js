@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 const routes = require('./routes');
+const errorHandler = require('./middlewares/errorHandler.middleware');
 
 
 var app = express();
@@ -15,5 +16,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+app.use(errorHandler);
 
 module.exports = app;
