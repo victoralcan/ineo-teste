@@ -7,7 +7,7 @@ const UnauthorizedError = require('../errors/unauthorized.error');
 
 const userService = new UserService(new prisma.PrismaClient());
 
-router.post('/login', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await userService.getUserByEmail(email);
@@ -21,3 +21,5 @@ router.post('/login', async (req, res, next) => {
     next(error);
   }
 });
+
+module.exports = router;
