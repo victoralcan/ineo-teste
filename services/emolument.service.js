@@ -34,8 +34,14 @@ class EmolumentService {
   }
 
 
-  async getEmolumentById(id) {
-    return await this.emolumentRepository.findEmolumentById(id);
+  async getEmolumentById(id, user) {
+   const emolument = await this.emolumentRepository.findEmolumentById(id);
+
+    if (!emolument || (user.role !== 'ADMIN' && user.role !== 'EMPLOYEE' && emolument.userId !== user.id)) {
+      throw new NotFoundError("Emolument not found");
+    }
+
+    return emolument;
   }
 
   async updateEmolument(id, emolumentData) {
