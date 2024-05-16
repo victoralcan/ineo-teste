@@ -3,10 +3,11 @@ const express = require('express');
 const router = express.Router();
 const UserService = require('../services/user.service');
 const prisma = require('@prisma/client');
+const UnauthorizedError = require('../errors/unauthorized.error');
 
 const userService = new UserService(new prisma.PrismaClient());
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await userService.getUserByEmail(email);
@@ -14,9 +15,9 @@ router.post('/login', async (req, res) => {
       const token = generateToken(user);
       res.json({ token });
     } else {
-      res.status(401).json({ message: 'Login or password invalid' });
+      throw new UnauthorizedError('Login or password invalid');
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 });
