@@ -25,12 +25,13 @@ model User {
 }
 
 model Protest {
-  id          Int        @id @default(autoincrement())
-  debtAmount  Decimal
-  description String?
-  userId      Int
-  user        User       @relation(fields: [userId], references: [id])
-  emolument   Emolument?
+  id                   Int        @id @default(autoincrement())
+  debtAmount           Decimal
+  description          String?
+  userId               Int
+  user                 User       @relation(fields: [userId], references: [id])
+  emolument            Emolument?
+  debtorDocumentNumber String
 
   @@index([userId])
 }
