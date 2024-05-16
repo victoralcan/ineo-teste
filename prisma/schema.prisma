@@ -35,7 +35,7 @@ model Protest {
 model Emolument {
   id        Int     @id @default(autoincrement())
   amount    Decimal
-  protestId Int
+  protestId Int     @unique
   protest   Protest @relation(fields: [protestId], references: [id])
 
   @@index([protestId])
