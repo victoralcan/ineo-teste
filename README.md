@@ -11,6 +11,15 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
 - **Jest**: Framework de testes para JavaScript.
 - **bcryptjs**: Biblioteca para hash de senhas.
 - **jsonwebtoken**: Biblioteca para criação e verificação de tokens JWT.
+- **swagger-ui-express**: Middleware para documentação de APIs.
+
+## Arquitetura do Projeto
+
+O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns, como:
+- **Repository Pattern**: Separação das operações de banco de dados em repositórios.
+- **Service Layer**: Separação das regras de negócio em serviços.
+- **Middleware Pattern**: Utilização de middlewares para tratamento de requisições.
+- **Strategy Pattern**: Definição de interfaces para encapsular algoritmos.
 
 ## Funcionalidades
 
@@ -36,14 +45,17 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/victoralcan/ineo-teste.git
+   git clone git@github.com:victoralcan/ineo-teste.git
    cd ineo-teste
    ```
 2. Instale as dependências:
   ```bash
    yarn install
  ```
-3. Rode o `docker-compose.yml` com o comando `docker compose up -d`.
+3. Execute o `docker-compose.yml` com o comando:
+   ```bash
+      docker compose up -d`.
+   ```
 4. Configure as variáveis de ambiente no arquivo `.env` seguindo o `.env.example`
 5. Rode as migrações do banco de dados:
    ```bash
@@ -61,3 +73,29 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
    ```bash
    yarn dev
    ```
+   
+## Testes
+
+Para rodar os testes, execute o comando:
+```bash
+yarn test
+```
+
+## Estrutura do Projeto
+
+  * `bin/`: Inicializador do servidor
+  * `docs/`: Documentação da API.
+  * `errors/`: Erros lançados pela aplicação.
+  * `middlewares/`: Middlewares da aplicação.
+  * `prisma/`: Configuração do Prisma.
+  * `public/`: Arquivos estáticos.
+  * `repositories/`: Repositórios da aplicação.
+  * `routes/`: Rotas da aplicação.
+  * `services/`: Serviços da aplicação.
+  * `utils/`: Funções utilitárias.
+  * `app.ts`: Configuração do Express.
+  * `docker-compose.yml`: Configuração do Docker Compose com a infraestrutura necessária.
+
+## Documentação
+
+Esta API é documentada utilizando Swagger(OpenAPI). Para acessar a documentação, acesse a rota `/api-docs`.
