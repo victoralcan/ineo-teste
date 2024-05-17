@@ -99,3 +99,10 @@ yarn test
 ## Documentação
 
 Esta API é documentada utilizando Swagger(OpenAPI). Para acessar a documentação, acesse a rota `/api-docs`.
+
+## Seeds
+
+Ao popular o banco com as seeds, é criado 1 usuário com a role `EMPLOYEE`:
+- **Usuário**: 
+  - **Email**: `employee@example.com`
+  - **Senha**: `senha`
