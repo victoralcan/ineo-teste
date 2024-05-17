@@ -19,6 +19,12 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
 - **Autorização**: Controle de acesso baseado em roles `(USER, EMPLOYEE, ADMIN)`.
 - **Cálculo Automático do Emolumento**: O valor do emolumento é calculado automaticamente com base no valor do protesto.
 
+## Controle de acesso
+
+- As rotas de login não possuem autenticação.
+- Aos usuários ADMIN ou EMPLOYEE, são permitidas todas as operações.
+- Ao usuário USER, são permitidas as operações de listagem de protestos, emolumentos, além da busca de um registro apenas.
+
 ## Instalação e Configuração
 
 ### Pré-requisitos
