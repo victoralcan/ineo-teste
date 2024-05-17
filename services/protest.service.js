@@ -4,15 +4,16 @@ const NotFoundError = require('../errors/notFound.error');
 const generateRandomString = require('../utils/generateRandomStringStrategy');
 
 class ProtestService {
-  constructor(prisma) {
-    this.protestRepository = new ProtestRepository(prisma);
-    this.userService = new UserService(prisma);
+  constructor(prisma, userService = new UserService(prisma), protestRepository = new ProtestRepository(prisma)) {
+    this.protestRepository = protestRepository;
+    this.userService = userService;
   }
 
   async addProtest(protestData) {
     const { payeeDocumentNumber, payeeName, payeeEmail, debtAmount, description, debtorDocumentNumber } = protestData;
 
     let payee = await this.userService.getUserByDocumentNumber(payeeDocumentNumber);
+    console.log("payee primeira query", payee);
 
     if (!payee) {
       try {
@@ -22,10 +23,13 @@ class ProtestService {
           email: payeeEmail,
           password: generateRandomString(12)
         });
+        console.log("payee segunda query", payee);
       } catch (error) {
         throw new Error("Error creating protest: " + error.message);
       }
     }
+
+    console.log("payee antes ultima query", payee);
 
     return await this.protestRepository.createProtest({
       userId: payee.id,
