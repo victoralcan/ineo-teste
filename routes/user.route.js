@@ -9,6 +9,8 @@ const userService = new UserService(new prisma.PrismaClient());
  * @swagger
  * /users:
  *   post:
+ *     security:
+ *       - Authorization: []
  *     summary: Cria um novo usuário
  *     tags: [User]
  *     requestBody:
@@ -43,6 +45,8 @@ router.post('/', async (req, res, next) => {
  * @swagger
  * /users/{id}:
  *   get:
+ *     security:
+ *       - Authorization: []
  *     summary: Retorna um usuário pelo ID
  *     tags: [User]
  *     parameters:
@@ -78,6 +82,8 @@ router.get('/:id', async (req, res, next) => {
  * @swagger
  * /users/{id}:
  *   put:
+ *     security:
+ *       - Authorization: []
  *     summary: Atualiza um usuário pelo ID
  *     tags: [User]
  *     parameters:
@@ -119,6 +125,8 @@ router.put('/:id', async (req, res, next) => {
  * @swagger
  * /users/{id}:
  *   delete:
+ *     security:
+ *       - Authorization: []
  *     summary: Deleta um usuário pelo ID
  *     tags: [User]
  *     parameters:

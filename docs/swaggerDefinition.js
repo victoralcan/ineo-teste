@@ -11,6 +11,14 @@ const swaggerDefinition = {
     }
   ],
   components: {
+    securitySchemes: {
+      Authorization: {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        value: "Bearer <JWT token here>"
+      }
+    },
     schemas: {
       UserResponse: {
         type: 'object',
@@ -155,10 +163,6 @@ const swaggerDefinition = {
           debtorDocumentNumber: {
             type: 'string',
             description: 'Número do documento do devedor'
-          },
-          userId: {
-            type: 'integer',
-            description: 'ID do usuário associado ao protesto (cobrador)'
           }
         },
         example: {
@@ -167,8 +171,7 @@ const swaggerDefinition = {
           payeeEmail: 'john@example.com',
           debtAmount: 1500.00,
           description: 'Debt for service not paid',
-          debtorDocumentNumber: '0987654321',
-          userId: 2
+          debtorDocumentNumber: '0987654321'
         }
       },
       Emolument: {

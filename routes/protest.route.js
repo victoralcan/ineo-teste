@@ -10,6 +10,8 @@ const protestService = new ProtestService(new prisma.PrismaClient());
  * @swagger
  * /protests:
  *   post:
+ *     security:
+ *       - Authorization: []
  *     summary: Cria um novo protesto
  *     tags: [Protest]
  *     requestBody:
@@ -43,6 +45,8 @@ router.post('/', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
  * @swagger
  * /protests/{id}:
  *   get:
+ *     security:
+ *       - Authorization: []
  *     summary: Retorna um protesto pelo ID
  *     tags: [Protest]
  *     parameters:
@@ -77,6 +81,8 @@ router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next
  * @swagger
  * /protests/{id}:
  *   put:
+ *     security:
+ *       - Authorization: []
  *     summary: Atualiza um protesto pelo ID
  *     tags: [Protest]
  *     parameters:
@@ -117,6 +123,8 @@ router.put('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
  * @swagger
  * /protests/{id}:
  *   delete:
+ *     security:
+ *       - Authorization: []
  *     summary: Deleta um protesto pelo ID
  *     tags: [Protest]
  *     parameters:
