@@ -4,6 +4,7 @@ const router = express.Router();
 const authorize = require('../middlewares/authorize.middleware');
 
 const prisma = require('@prisma/client');
+const UnauthorizedError = require('../errors/unauthorized.error');
 const protestService = new ProtestService(new prisma.PrismaClient());
 
 /**
@@ -99,9 +100,50 @@ router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next
  *       500:
  *         description: Erro no servidor
  */
-router.get('/user', async (req, res, next) => {
+router.get('/user', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
     const protests = await protestService.getProtestsByUserId(req.user.id);
+    res.status(200).json(protests);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
+ * /protests/user/{userId}:
+ *   get:
+ *     summary: Retorna todos os protestos de um usuário pelo ID
+ *     tags: [Protest]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: O ID do usuário
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Protestos do usuário encontrados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Protest'
+ *       404:
+ *         description: Nenhum protesto encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.get('/user/:userId', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
+  try {
+    if (req.user.role !== 'ADMIN' && req.user.role !== 'EMPLOYEE' && req.user.id !== req.params.userId) {
+      throw new UnauthorizedError("You are not authorized to access this resource");
+    }
+    const protests = await protestService.getProtestsByUserId(req.params.userId);
     res.status(200).json(protests);
   } catch (error) {
     next(error);
