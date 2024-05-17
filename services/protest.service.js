@@ -13,7 +13,6 @@ class ProtestService {
     const { payeeDocumentNumber, payeeName, payeeEmail, debtAmount, description, debtorDocumentNumber } = protestData;
 
     let payee = await this.userService.getUserByDocumentNumber(payeeDocumentNumber);
-    console.log("payee primeira query", payee);
 
     if (!payee) {
       try {
@@ -23,13 +22,10 @@ class ProtestService {
           email: payeeEmail,
           password: generateRandomString(12)
         });
-        console.log("payee segunda query", payee);
       } catch (error) {
         throw new Error("Error creating protest: " + error.message);
       }
     }
-
-    console.log("payee antes ultima query", payee);
 
     return await this.protestRepository.createProtest({
       userId: payee.id,
