@@ -61,15 +61,15 @@ O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns
    ```bash
    npx prisma migrate dev
    ```
-6. Gere o prisma client
+6. Gere o prisma client:
     ```bash
    npx prisma generate
    ```
-7. Rode o seed para popular o banco de dados com dados iniciais
+7. Rode o seed para popular o banco de dados com dados iniciais:
    ```bash
    yarn seed
    ```
-8. Rode a aplicação
+8. Rode a aplicação:
    ```bash
    yarn dev
    ```
