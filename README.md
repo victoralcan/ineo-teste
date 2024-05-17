@@ -31,7 +31,7 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
 1. Clone o repositório:
    ```bash
    git clone https://github.com/victoralcan/ineo-teste.git
-   cd seu-repositorio
+   cd ineo-teste
    ```
 2. Instale as dependências:
   ```bash
