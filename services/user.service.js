@@ -2,8 +2,8 @@ const UserRepository = require('../repositories/user.repository');
 const encryptPassword = require('../utils/encryptPasswordStrategy');
 
 class UserService {
-  constructor(prisma) {
-    this.userRepository = new UserRepository(prisma);
+  constructor(prisma, userRepository = new UserRepository(prisma)) {
+    this.userRepository = userRepository;
   }
 
   async addUser(userData) {
