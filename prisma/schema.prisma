@@ -37,10 +37,11 @@ model Protest {
 }
 
 model Emolument {
-  id        Int     @id @default(autoincrement())
+  id        Int             @id @default(autoincrement())
   amount    Decimal
-  protestId Int     @unique
-  protest   Protest @relation(fields: [protestId], references: [id])
+  protestId Int             @unique
+  protest   Protest         @relation(fields: [protestId], references: [id])
+  status    EmolumentStatus @default(ISSUED)
 
   @@index([protestId])
 }
@@ -49,4 +50,10 @@ enum Role {
   USER
   EMPLOYEE
   ADMIN
+}
+
+enum EmolumentStatus {
+  PAID
+  ISSUED
+  CANCELED
 }
