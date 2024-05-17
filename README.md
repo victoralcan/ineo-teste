@@ -83,7 +83,7 @@ yarn test
 
 ## Estrutura do Projeto
 
-  * `bin/`: Inicializador do servidor
+  * `bin/`: Inicializador do servidor.
   * `docs/`: Documentação da API.
   * `errors/`: Erros lançados pela aplicação.
   * `middlewares/`: Middlewares da aplicação.
