@@ -1,13 +1,14 @@
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
+const encryptPassword = require('../utils/encryptPasswordStrategy');
 
 async function main() {
   await prisma.user.deleteMany();
   await prisma.protest.deleteMany();
   await prisma.emolument.deleteMany();
 
-  const hashedPassword = await bcrypt.hash('senha', 10);
+  const hashedPassword = encryptPassword("senha");
 
   await prisma.user.create({
     data: {
