@@ -16,7 +16,7 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
 
 - **CRUD**: Operações CRUD para usuários, protestos e emolumentos.
 - **Autenticação**: Autenticação JWT para proteger rotas.
-- **Autorização**: Controle de acesso baseado em roles (USER, EMPLOYEE, ADMIN).
+- **Autorização**: Controle de acesso baseado em roles `(USER, EMPLOYEE, ADMIN)`.
 - **Cálculo Automático do Emolumento**: O valor do emolumento é calculado automaticamente com base no valor do protesto.
 
 ## Instalação e Configuração
