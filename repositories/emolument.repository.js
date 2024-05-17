@@ -15,6 +15,12 @@ class EmolumentRepository {
     });
   }
 
+  async findEmolumentsByUserId(userId) {
+    return await this.prisma.emolument.findMany({
+      where: { protest: { userId } },
+    });
+  }
+
   async updateEmolument(id, data) {
     return await this.prisma.emolument.update({
       where: { id },

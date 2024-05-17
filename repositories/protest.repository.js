@@ -13,8 +13,14 @@ class ProtestRepository {
     return await this.prisma.protest.findUnique({
       where: { id },
       include: {
-        emolument: true, // include emolument if needed
+        emolument: true,
       },
+    });
+  }
+
+  async findProtestsByUserId(userId) {
+    return await this.prisma.protest.findMany({
+      where: { userId },
     });
   }
 

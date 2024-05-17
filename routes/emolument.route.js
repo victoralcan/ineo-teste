@@ -79,6 +79,37 @@ router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next
 
 /**
  * @swagger
+ * /emoluments/user:
+ *   get:
+ *     summary: Retorna todos os emolumentos do usuário logado
+ *     tags: [Emolument]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Emolumentos do usuário logado encontrados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Emolument'
+ *       404:
+ *         description: Nenhum emolumento encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.get('/user', async (req, res, next) => {
+  try {
+    const emoluments = await emolumentService.getEmolumentsByUserId(req.user.id);
+    res.status(200).json(emoluments);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
  * /emoluments/{id}:
  *   put:
  *     security:

@@ -79,6 +79,37 @@ router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next
 
 /**
  * @swagger
+ * /protests/user:
+ *   get:
+ *     summary: Retorna todos os protestos do usuário logado
+ *     tags: [Protest]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Protestos do usuário logado encontrados
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Protest'
+ *       404:
+ *         description: Nenhum protesto encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.get('/user', async (req, res, next) => {
+  try {
+    const protests = await protestService.getProtestsByUserId(req.user.id);
+    res.status(200).json(protests);
+  } catch (error) {
+    next(error);
+  }
+});
+
+/**
+ * @swagger
  * /protests/{id}:
  *   put:
  *     security:

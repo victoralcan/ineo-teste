@@ -44,6 +44,10 @@ class EmolumentService {
     return emolument;
   }
 
+  async getEmolumentsByUserId(userId) {
+    return await this.emolumentRepository.findEmolumentsByUserId(userId);
+  }
+
   async updateEmolument(id, emolumentData) {
     return await this.emolumentRepository.updateEmolument(id, emolumentData);
   }

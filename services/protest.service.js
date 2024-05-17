@@ -44,6 +44,10 @@ class ProtestService {
     return protest;
   }
 
+  async getProtestsByUserId(userId) {
+    return await this.protestRepository.findProtestsByUserId(userId);
+  }
+
   async updateProtest(id, protestData) {
     return await this.protestRepository.updateProtest(id, protestData);
   }
