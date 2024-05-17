@@ -7,6 +7,30 @@ const UnauthorizedError = require('../errors/unauthorized.error');
 
 const userService = new UserService(new prisma.PrismaClient());
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Faz login do usuário e gera um token JWT
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/LoginRequest'
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       401:
+ *         description: Login ou senha inválidos
+ *       500:
+ *         description: Erro no servidor
+ */
 router.post('/', async (req, res, next) => {
   const { email, password } = req.body;
   try {
