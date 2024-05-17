@@ -70,7 +70,7 @@ router.post('/', async (req, res, next) => {
  */
 router.get('/:id', async (req, res, next) => {
   try {
-    const user = await userService.getUserById(req.params.id);
+    const user = await userService.getUserById(parseInt(req.params.id));
     delete user.password;
     res.status(200).json(user);
   } catch (error) {
@@ -113,7 +113,7 @@ router.get('/:id', async (req, res, next) => {
  */
 router.put('/:id', async (req, res, next) => {
   try {
-    const user = await userService.updateUser(req.params.id, req.body);
+    const user = await userService.updateUser(parseInt(req.params.id), req.body);
     delete user.password;
     res.status(200).json(user);
   } catch (error) {
@@ -146,7 +146,7 @@ router.put('/:id', async (req, res, next) => {
  */
 router.delete('/:id', async (req, res, next) => {
   try {
-    await userService.deleteUser(req.params.id);
+    await userService.deleteUser(parseInt(req.params.id));
     res.status(204).send();
   } catch (error) {
     next(error);

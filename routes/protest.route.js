@@ -66,7 +66,7 @@ router.post('/', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
  */
 router.get('/user', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const protests = await protestService.getProtestsByUserId(req.user.id);
+    const protests = await protestService.getProtestsByUserId(parseInt(req.user.id));
     res.status(200).json(protests);
   } catch (error) {
     next(error);
@@ -102,7 +102,7 @@ router.get('/user', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, nex
  */
 router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const protest = await protestService.getProtestById(req.params.id, req.user);
+    const protest = await protestService.getProtestById(parseInt(req.params.id), req.user);
     res.status(200).json(protest);
   } catch (error) {
     next(error);
@@ -140,10 +140,12 @@ router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next
  */
 router.get('/user/:userId', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
-    if (req.user.role !== 'ADMIN' && req.user.role !== 'EMPLOYEE' && req.user.id !== req.params.userId) {
+    const loggedUserId = parseInt(req.user.id);
+    const paramUserId = parseInt(req.params.userId);
+    if (req.user.role !== 'ADMIN' && req.user.role !== 'EMPLOYEE' && loggedUserId !== paramUserId) {
       throw new UnauthorizedError("You are not authorized to access this resource");
     }
-    const protests = await protestService.getProtestsByUserId(parseInt(req.params.userId));
+    const protests = await protestService.getProtestsByUserId(paramUserId);
     res.status(200).json(protests);
   } catch (error) {
     next(error);
@@ -185,7 +187,7 @@ router.get('/user/:userId', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, 
  */
 router.put('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const protest = await protestService.updateProtest(req.params.id, req.body);
+    const protest = await protestService.updateProtest(parseInt(req.params.id), req.body);
     res.status(200).json(protest);
   } catch (error) {
     next(error);
@@ -217,7 +219,7 @@ router.put('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
  */
 router.delete('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
   try {
-    await protestService.deleteProtest(req.params.id);
+    await protestService.deleteProtest(parseInt(req.params.id));
     res.status(204).send();
   } catch (error) {
     next(error);

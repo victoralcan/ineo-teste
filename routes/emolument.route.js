@@ -35,7 +35,7 @@ const emolumentService = new EmolumentService(new prisma.PrismaClient());
  */
 router.post('/', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const emolument = await emolumentService.addEmolument(req.body.protestId);
+    const emolument = await emolumentService.addEmolument(parseInt(req.body.protestId));
     res.status(201).json(emolument);
   } catch (error) {
     next(error);
@@ -66,7 +66,7 @@ router.post('/', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
  */
 router.get('/user', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const emoluments = await emolumentService.getEmolumentsByUserId(req.user.id);
+    const emoluments = await emolumentService.getEmolumentsByUserId(parseInt(req.user.id));
     res.status(200).json(emoluments);
   } catch (error) {
     next(error);
@@ -102,7 +102,7 @@ router.get('/user', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, nex
  */
 router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const emolument = await emolumentService.getEmolumentById(req.params.id, req.user);
+    const emolument = await emolumentService.getEmolumentById(parseInt(req.params.id), req.user);
     res.status(200).json(emolument);
   } catch (error) {
     next(error);
@@ -140,10 +140,12 @@ router.get('/:id', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next
  */
 router.get('/user/:userId', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, res, next) => {
   try {
-    if (req.user.role !== 'ADMIN' && req.user.role !== 'EMPLOYEE' && req.user.id !== req.params.userId) {
+    const loggedUserId = parseInt(req.user.id);
+    const paramUserId = parseInt(req.params.userId);
+    if (req.user.role !== 'ADMIN' && req.user.role !== 'EMPLOYEE' && loggedUserId !== paramUserId) {
       throw new UnauthorizedError("You are not authorized to access this resource");
     }
-    const emoluments = await emolumentService.getEmolumentsByUserId(parseInt(req.params.userId));
+    const emoluments = await emolumentService.getEmolumentsByUserId(paramUserId);
     res.status(200).json(emoluments);
   } catch (error) {
     next(error);
@@ -185,7 +187,7 @@ router.get('/user/:userId', authorize("ADMIN", "USER", "EMPLOYEE"), async (req, 
  */
 router.put('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const emolument = await emolumentService.updateEmolument(req.params.id, req.body);
+    const emolument = await emolumentService.updateEmolument(parseInt(req.params.id), req.body);
     res.status(200).json(emolument);
   } catch (error) {
     next(error);
@@ -217,7 +219,7 @@ router.put('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
  */
 router.delete('/:id', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
   try {
-    await emolumentService.deleteEmolument(req.params.id);
+    await emolumentService.deleteEmolument(parseInt(req.params.id));
     res.status(204).send();
   } catch (error) {
     next(error);
