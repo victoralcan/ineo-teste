@@ -4,9 +4,9 @@ const calculateEmolument = require('../utils/calculateEmolumentStrategy');
 const NotFoundError = require('../errors/notFound.error');
 
 class EmolumentService {
-  constructor(prisma) {
-    this.emolumentRepository = new EmolumentRepository(prisma);
-    this.protestService = new ProtestService(prisma);
+  constructor(prisma, emolumentRepository = new EmolumentRepository(prisma), protestService = new ProtestService(prisma)) {
+    this.emolumentRepository = emolumentRepository;
+    this.protestService = protestService;
   }
 
   async addEmolument(protestId) {
@@ -35,7 +35,7 @@ class EmolumentService {
 
 
   async getEmolumentById(id, user) {
-   const emolument = await this.emolumentRepository.findEmolumentById(id);
+    const emolument = await this.emolumentRepository.findEmolumentById(id);
 
     if (!emolument || (user.role !== 'ADMIN' && user.role !== 'EMPLOYEE' && emolument.userId !== user.id)) {
       throw new NotFoundError("Emolument not found");
