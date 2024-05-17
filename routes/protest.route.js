@@ -17,7 +17,7 @@ const protestService = new ProtestService(new prisma.PrismaClient());
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Protest'
+ *             $ref: '#/components/schemas/ProtestCreationRequest'
  *     responses:
  *       201:
  *         description: Protesto criado com sucesso

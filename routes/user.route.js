@@ -16,14 +16,14 @@ const userService = new UserService(new prisma.PrismaClient());
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/User'
+ *             $ref: '#/components/schemas/UserCreationRequest'
  *     responses:
  *       201:
  *         description: Usuário criado com sucesso
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/UserResponse'
  *       400:
  *         description: Dados inválidos
  *       500:
@@ -32,6 +32,7 @@ const userService = new UserService(new prisma.PrismaClient());
 router.post('/', async (req, res, next) => {
   try {
     const user = await userService.addUser(req.body);
+    delete user.password;
     res.status(201).json(user);
   } catch (error) {
     next(error);
@@ -57,7 +58,7 @@ router.post('/', async (req, res, next) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/UserResponse'
  *       404:
  *         description: Usuário não encontrado
  *       500:
@@ -66,6 +67,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const user = await userService.getUserById(req.params.id);
+    delete user.password;
     res.status(200).json(user);
   } catch (error) {
     next(error);
@@ -97,7 +99,7 @@ router.get('/:id', async (req, res, next) => {
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/User'
+ *               $ref: '#/components/schemas/UserResponse'
  *       404:
  *         description: Usuário não encontrado
  *       500:
@@ -106,6 +108,7 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const user = await userService.updateUser(req.params.id, req.body);
+    delete user.password;
     res.status(200).json(user);
   } catch (error) {
     next(error);

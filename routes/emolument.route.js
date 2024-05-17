@@ -17,7 +17,7 @@ const emolumentService = new EmolumentService(new prisma.PrismaClient());
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Emolument'
+ *             $ref: '#/components/schemas/EmolumentCreationRequest'
  *     responses:
  *       201:
  *         description: Emolumento criado com sucesso

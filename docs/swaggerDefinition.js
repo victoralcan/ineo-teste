@@ -3,53 +3,76 @@ const swaggerDefinition = {
   info: {
     title: 'Sistema de Registro de Protestos e Emolumentos',
     version: '1.0.0',
-    description: 'API para registrar protestos e emolumentos',
+    description: 'API para registrar protestos e emolumentos'
   },
   servers: [
     {
-      url: 'http://localhost:3000',
-    },
+      url: 'http://localhost:3000'
+    }
   ],
   components: {
     schemas: {
-      User: {
+      UserResponse: {
         type: 'object',
-        required: ['name', 'email', 'password'],
         properties: {
           id: {
             type: 'integer',
-            description: 'O ID do usuário',
+            description: 'O ID do usuário'
           },
           name: {
             type: 'string',
-            description: 'O nome do usuário',
+            description: 'O nome do usuário'
           },
           email: {
             type: 'string',
-            description: 'O e-mail do usuário',
-          },
-          password: {
-            type: 'string',
-            description: 'A senha do usuário',
+            description: 'O e-mail do usuário'
           },
           role: {
             type: 'string',
             description: 'O papel do usuário',
-            enum: ['USER', 'EMPLOYEE', 'ADMIN'],
+            enum: ['USER', 'EMPLOYEE', 'ADMIN']
           },
           hasSetInitialPassword: {
             type: 'boolean',
-            description: 'Indica se o usuário configurou a senha inicial',
-          },
+            description: 'Indica se o usuário configurou a senha inicial'
+          }
         },
         example: {
           id: 1,
           name: 'John Doe',
           email: 'john@example.com',
-          password: 'password123',
           role: 'USER',
-          hasSetInitialPassword: false,
+          hasSetInitialPassword: false
+        }
+      },
+      UserCreationRequest: {
+        type: 'object',
+        required: ['name', 'email', 'password'],
+        properties: {
+          name: {
+            type: 'string',
+            description: 'O nome do usuário'
+          },
+          email: {
+            type: 'string',
+            description: 'O email do usuário'
+          },
+          password: {
+            type: 'string',
+            description: 'A senha do usuário'
+          },
+          role: {
+            type: 'string',
+            description: 'O papel do usuário',
+            enum: ['USER', 'EMPLOYEE', 'ADMIN']
+          }
         },
+        example: {
+          name: 'John Doe',
+          email: 'john@example.com',
+          password: 'password123',
+          role: 'USER'
+        }
       },
       Protest: {
         type: 'object',
@@ -57,41 +80,41 @@ const swaggerDefinition = {
         properties: {
           id: {
             type: 'integer',
-            description: 'O ID do protesto',
+            description: 'O ID do protesto'
           },
           payeeDocumentNumber: {
             type: 'string',
-            description: 'Número do documento do cobrador',
+            description: 'Número do documento do cobrador'
           },
           payeeName: {
             type: 'string',
-            description: 'Nome do cobrador',
+            description: 'Nome do cobrador'
           },
           payeeEmail: {
             type: 'string',
-            description: 'Email do cobrador',
+            description: 'Email do cobrador'
           },
           debtAmount: {
             type: 'number',
-            description: 'Valor da dívida',
+            description: 'Valor da dívida'
           },
           description: {
             type: 'string',
-            description: 'Descrição da dívida',
+            description: 'Descrição da dívida'
           },
           debtorDocumentNumber: {
             type: 'string',
-            description: 'Número do documento do devedor',
+            description: 'Número do documento do devedor'
           },
           userId: {
             type: 'integer',
-            description: 'ID do usuário associado ao protesto (cobrador)',
+            description: 'ID do usuário associado ao protesto (cobrador)'
           },
           createdAt: {
             type: 'string',
             format: 'date-time',
-            description: 'Data de criação do protesto',
-          },
+            description: 'Data de criação do protesto'
+          }
         },
         example: {
           id: 1,
@@ -102,8 +125,51 @@ const swaggerDefinition = {
           description: 'Debt for service not paid',
           debtorDocumentNumber: '0987654321',
           userId: 2,
-          createdAt: '2024-05-16T09:30:00.000Z',
+          createdAt: '2024-05-16T09:30:00.000Z'
+        }
+      },
+      ProtestCreationRequest: {
+        type: 'object',
+        required: ['payeeDocumentNumber', 'payeeName', 'debtAmount', 'debtorDocumentNumber'],
+        properties: {
+          payeeDocumentNumber: {
+            type: 'string',
+            description: 'Número do documento do cobrador'
+          },
+          payeeName: {
+            type: 'string',
+            description: 'Nome do cobrador'
+          },
+          payeeEmail: {
+            type: 'string',
+            description: 'Email do cobrador'
+          },
+          debtAmount: {
+            type: 'number',
+            description: 'Valor da dívida'
+          },
+          description: {
+            type: 'string',
+            description: 'Descrição da dívida'
+          },
+          debtorDocumentNumber: {
+            type: 'string',
+            description: 'Número do documento do devedor'
+          },
+          userId: {
+            type: 'integer',
+            description: 'ID do usuário associado ao protesto (cobrador)'
+          }
         },
+        example: {
+          payeeDocumentNumber: '1234567890',
+          payeeName: 'John Doe',
+          payeeEmail: 'john@example.com',
+          debtAmount: 1500.00,
+          description: 'Debt for service not paid',
+          debtorDocumentNumber: '0987654321',
+          userId: 2
+        }
       },
       Emolument: {
         type: 'object',
@@ -111,28 +177,46 @@ const swaggerDefinition = {
         properties: {
           id: {
             type: 'integer',
-            description: 'O ID do emolumento',
+            description: 'O ID do emolumento'
           },
           protestId: {
             type: 'integer',
-            description: 'O ID do protesto associado',
+            description: 'O ID do protesto associado'
           },
           amount: {
             type: 'number',
-            description: 'Valor do emolumento',
+            description: 'Valor do emolumento'
           },
           createdAt: {
             type: 'string',
             format: 'date-time',
-            description: 'Data de criação do emolumento',
-          },
+            description: 'Data de criação do emolumento'
+          }
         },
         example: {
           id: 1,
           protestId: 1,
           amount: 112.50,
-          createdAt: '2024-05-16T09:30:00.000Z',
+          createdAt: '2024-05-16T09:30:00.000Z'
+        }
+      },
+      EmolumentCreationRequest: {
+        type: 'object',
+        required: ['protestId', 'amount'],
+        properties: {
+          protestId: {
+            type: 'integer',
+            description: 'O ID do protesto associado'
+          },
+          amount: {
+            type: 'number',
+            description: 'Valor do emolumento'
+          }
         },
+        example: {
+          protestId: 1,
+          amount: 112.50
+        }
       },
       LoginRequest: {
         type: 'object',
@@ -140,32 +224,32 @@ const swaggerDefinition = {
         properties: {
           email: {
             type: 'string',
-            description: 'O email do usuário',
+            description: 'O email do usuário'
           },
           password: {
             type: 'string',
-            description: 'A senha do usuário',
-          },
+            description: 'A senha do usuário'
+          }
         },
         example: {
           email: 'john@example.com',
-          password: 'password123',
-        },
+          password: 'password123'
+        }
       },
       LoginResponse: {
         type: 'object',
         properties: {
           token: {
             type: 'string',
-            description: 'O token JWT gerado',
-          },
+            description: 'O token JWT gerado'
+          }
         },
         example: {
-          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
-        },
-      },
-    },
-  },
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+        }
+      }
+    }
+  }
 };
 
 module.exports = swaggerDefinition;
