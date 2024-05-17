@@ -1,4 +1,4 @@
-const { UnauthorizedError } = require('../errors/unauthorized.error');
+const UnauthorizedError = require('../errors/unauthorized.error');
 
 function authorize(...roles) {
   return (req, res, next) => {
