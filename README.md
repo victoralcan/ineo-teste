@@ -60,7 +60,7 @@ O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns
 
 3. Execute o `docker-compose.yml` com o comando:
    ```bash
-      docker compose up -d`.
+      docker compose up -d
    ```
 4. Configure as variáveis de ambiente no arquivo `.env` seguindo o `.env.example`
 5. Rode as migrações do banco de dados:
