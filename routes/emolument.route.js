@@ -35,7 +35,7 @@ const emolumentService = new EmolumentService(new prisma.PrismaClient());
  */
 router.post('/', authorize("ADMIN", "EMPLOYEE"), async (req, res, next) => {
   try {
-    const emolument = await emolumentService.addEmolument(parseInt(req.body.protestId));
+    const emolument = await emolumentService.addEmolument(parseInt(req.body.protestId), req.user);
     res.status(201).json(emolument);
   } catch (error) {
     next(error);

@@ -6,17 +6,17 @@ const NotFoundError = require('../errors/notFound.error');
 class EmolumentService {
   constructor(prisma, emolumentRepository = new EmolumentRepository(prisma), protestService = new ProtestService(prisma)) {
     this.emolumentRepository = emolumentRepository;
-    this.protestService = protestService;
-  }
+      this.protestService = protestService;
+    }
 
-  async addEmolument(protestId) {
-    try {
-      const protest = await this.protestService.getProtestById(protestId);
-      if (!protest) {
-        throw new NotFoundError("Protest not found");
-      }
+    async addEmolument(protestId, user) {
+      try {
+        const protest = await this.protestService.getProtestById(protestId, user);
+        if (!protest) {
+          throw new NotFoundError("Protest not found");
+        }
 
-      const calculatedAmount = calculateEmolument(protest.debtAmount);
+        const calculatedAmount = calculateEmolument(protest.debtAmount);
 
       const emolumentToCreate = {
         protestId: protest.id,
