@@ -1,6 +1,8 @@
 # Sistema de Registro de Protestos e Emolumentos
 
-Este é um sistema desenvolvido em Node.js e Express para realizar operações CRUD (Create, Read, Update, Delete) em três entidades: "Protesto", "Emolumento" e "Usuário". O sistema permite o registro de protestos contra dívidas não pagas, cálculo automático do emolumento com base nos dados do protesto e gerenciamento de usuários.
+Este é um sistema desenvolvido em Node.js e Express para realizar operações CRUD (Create, Read, Update, Delete) em três
+entidades: "Protesto", "Emolumento" e "Usuário". O sistema permite o registro de protestos contra dívidas não pagas,
+cálculo automático do emolumento com base nos dados do protesto e gerenciamento de usuários.
 
 ## Tecnologias Utilizadas
 
@@ -16,6 +18,7 @@ Este é um sistema desenvolvido em Node.js e Express para realizar operações C
 ## Arquitetura do Projeto
 
 O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns, como:
+
 - **Repository Pattern**: Separação das operações de banco de dados em repositórios.
 - **Service Layer**: Separação das regras de negócio em serviços.
 - **Middleware Pattern**: Utilização de middlewares para tratamento de requisições.
@@ -31,15 +34,16 @@ O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns
 ## Controle de acesso
 
 - As rotas de login não possuem autenticação.
-- Aos usuários ADMIN ou EMPLOYEE, são permitidas todas as operações.
-- Ao usuário USER, são permitidas as operações de listagem de protestos, emolumentos, além da busca de um registro apenas.
+- Aos usuários `ADMIN` ou `EMPLOYEE`, são permitidas todas as operações.
+- Ao usuário `USER`, são permitidas as operações de listagem de protestos, emolumentos, além da busca de um registro
+  apenas.
 
 ## Instalação e Configuração
 
 ### Pré-requisitos
 
 - Node.js v20 LTS
-- PostgreSQL 
+- PostgreSQL
 
 ### Passos para Rodar o Projeto
 
@@ -49,9 +53,11 @@ O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns
    cd ineo-teste
    ```
 2. Instale as dependências:
+
   ```bash
    yarn install
  ```
+
 3. Execute o `docker-compose.yml` com o comando:
    ```bash
       docker compose up -d`.
@@ -73,28 +79,29 @@ O projeto foi desenvolvido seguindo alguns padrões de projeto e design patterns
    ```bash
    yarn dev
    ```
-   
+
 ## Testes
 
 Para rodar os testes, execute o comando:
+
 ```bash
 yarn test
 ```
 
 ## Estrutura do Projeto
 
-  * `bin/`: Inicializador do servidor
-  * `docs/`: Documentação da API.
-  * `errors/`: Erros lançados pela aplicação.
-  * `middlewares/`: Middlewares da aplicação.
-  * `prisma/`: Configuração do Prisma.
-  * `public/`: Arquivos estáticos.
-  * `repositories/`: Repositórios da aplicação.
-  * `routes/`: Rotas da aplicação.
-  * `services/`: Serviços da aplicação.
-  * `utils/`: Funções utilitárias.
-  * `app.ts`: Configuração do Express.
-  * `docker-compose.yml`: Configuração do Docker Compose com a infraestrutura necessária.
+* `bin/`: Inicializador do servidor
+* `docs/`: Documentação da API.
+* `errors/`: Erros lançados pela aplicação.
+* `middlewares/`: Middlewares da aplicação.
+* `prisma/`: Configuração do Prisma.
+* `public/`: Arquivos estáticos.
+* `repositories/`: Repositórios da aplicação.
+* `routes/`: Rotas da aplicação.
+* `services/`: Serviços da aplicação.
+* `utils/`: Funções utilitárias.
+* `app.ts`: Configuração do Express.
+* `docker-compose.yml`: Configuração do Docker Compose com a infraestrutura necessária.
 
 ## Documentação
 
@@ -103,6 +110,14 @@ Esta API é documentada utilizando Swagger(OpenAPI). Para acessar a documentaç�
 ## Seeds
 
 Ao popular o banco com as seeds, é criado 1 usuário com a role `EMPLOYEE`:
-- **Usuário**: 
-  - **Email**: `employee@example.com`
-  - **Senha**: `senha`
+
+- **Usuário**:
+    - **Email**: `employee@example.com`
+    - **Senha**: `senha`
+
+## Pontos de Melhoria
+
+- **Filtro de Protestos e Emolumentos**: Implementar filtros para busca de protestos e emolumentos.
+- **Logs**: Implementar logs para monitoramento da aplicação.
+- **Validação de Dados**: Implementar validação de dados com `Joi` ou `Yup`.
+- **Testes de Integração**: Implementar testes de integração.
